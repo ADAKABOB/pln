@@ -4,10 +4,60 @@ import BobAction from "./components/bob-action";
 import { useState } from "react";
 
 export default function Home() {
-  const [bg, setBg] = useState(false);
-  return (
-    <main className="flex flex-1 min-h-screen flex-col items-center justify-between p-24 backgdark">
-      <BobAction classNames={"relative"} setBg={setBg} bg={bg} />
-    </main>
+  const [aksi, setAksi] = useState(0);
+    const [ganti, setGanti] = useState(false);
+    const suara = new Audio("bob.mp3");
+    const suarafull = new Audio("full-soundbob.mp3");
+    useEffect(()=>{
+        let inter = setInterval(()=>{
+            setGanti(false);
+            setBg(false);
+            
+            clearInterval(inter);
+        }, 1000);
+    }, [ganti]);
+
+    
+    return (
+      <main className="flex flex-1 min-h-screen flex-col items-center justify-between p-24 backgdark">
+      
+        <div className={classNames}>
+            <div className="flex flex-col w-full h-screen gap-5 items-center justify-evenly">
+                <div className="text-4xl text-white font-bold relative top-22 scale-150 ">
+                {aksi}
+                </div>
+
+                <div onClick={()=>{
+
+                if(aksi != 0 && aksi % 100 == 0){
+                    suarafull.play();
+                }else{
+                    suarafull.pause();
+                }
+                    setAksi(aksi+1); suara.play(); setGanti(!ganti); setBg(!bg);
+                    
+                }
+                    } className="cursor-pointer hover:scale-105 duration-500 transtition-all">
+                    {ganti ? (
+                        <Image
+                        src="/lada.png"
+                        width={200}
+                        height={200}
+                        alt="lada"
+                        />
+                    ): (
+                        <Image
+                    src="/anjay.png"
+                    width={200}
+                    height={200}
+                    className="hover:scale-105"
+                    alt="anjay"
+                    />
+                    )}
+                </div>
+            </div>
+        </div>
+        </main>
+  
   );
 }
