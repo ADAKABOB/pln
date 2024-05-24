@@ -1,6 +1,5 @@
 'use client'
 import Image from "next/image";
-import BobAction from "./components/bob-action";
 import { useState } from "react";
 
 export default function Home() {
